@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Document, Page, DocumentProps } from "react-pdf";
+import { Document, Page, DocumentProps, PageProps } from "react-pdf";
 import { useSwipeable } from "react-swipeable";
 
 import * as T from "./_types";
@@ -78,6 +78,15 @@ const App: React.FC = () => {
     };
   }, [onDocumentLoadSuccess]);
 
+  const pageProps = React.useMemo<PageProps>(() => {
+    return {
+      loading: "Загружаем страницу",
+      error: " ",
+      noData: "Страница не указана",
+      renderMode: "canvas",
+    };
+  }, []);
+
   return (
     <div
       className={`pdf-reader ${orientation || "not-oriented"}`}
@@ -90,13 +99,13 @@ const App: React.FC = () => {
         }}
       >
         <Document {...documentProps}>
-          <Page pageNumber={pageNumber} />
+          <Page pageNumber={pageNumber} {...pageProps} />
         </Document>
       </div>
       {orientation === T.WindowOrientation.Landscape && (
         <div className="right-page page" onClick={handleNext}>
           <Document {...documentProps}>
-            <Page pageNumber={pageNumber + 1} />
+            <Page pageNumber={pageNumber + 1} {...pageProps} />
           </Document>
         </div>
       )}

@@ -13,13 +13,18 @@ code {
     monospace;
 }
 
+.pdf-reader {
+  cursor: pointer;
+}
+
 .landscape .page {
   display: inline-block;
   width: 50vw;
   height: 100vh;
 }
 
-.landscape .left-page canvas {
+.landscape .left-page canvas,
+.landscape .left-page svg {
   position: absolute;
   right: 0;
 }
@@ -46,7 +51,8 @@ code {
   overflow: hidden;
 }
 
-canvas {
+canvas,
+svg {
   max-height: 100vh;
   max-width: 100%;
   height: auto !important;
