@@ -6,7 +6,7 @@ import * as T from "./_types";
 import { useWindowResize } from "./useWindowResize";
 
 const App: React.FC = () => {
-  const [numPages, setNumPages] = useState<number>(0);
+  const [numPages, setNumPages] = useState<number>(1);
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [orientation, setOrientation] = useState<T.WindowOrientation>();
 
@@ -92,23 +92,25 @@ const App: React.FC = () => {
       className={`pdf-reader ${orientation || "not-oriented"}`}
       {...swipeHanlders}
     >
-      <div
-        className="left-page page"
-        onClick={() => {
-          orientation === T.WindowOrientation.Landscape && handlePrev();
-        }}
-      >
-        <Document {...documentProps}>
-          <Page pageNumber={pageNumber} {...pageProps} />
-        </Document>
-      </div>
-      {orientation === T.WindowOrientation.Landscape && (
-        <div className="right-page page" onClick={handleNext}>
-          <Document {...documentProps}>
-            <Page pageNumber={pageNumber + 1} {...pageProps} />
-          </Document>
-        </div>
-      )}
+      <Document {...documentProps}>
+        {pageNumber <= numPages && pageNumber >= 0 && (
+          <div
+            className="left-page page"
+            onClick={() => {
+              orientation === T.WindowOrientation.Landscape && handlePrev();
+            }}
+          >
+            <Page pageNumber={pageNumber} {...pageProps} />
+          </div>
+        )}
+        {orientation === T.WindowOrientation.Landscape &&
+          pageNumber + 1 <= numPages &&
+          pageNumber + 1 >= 0 && (
+            <div className="right-page page" onClick={handleNext}>
+              <Page pageNumber={pageNumber + 1} {...pageProps} />
+            </div>
+          )}
+      </Document>
     </div>
   );
 };
