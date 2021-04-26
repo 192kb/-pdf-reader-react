@@ -5,7 +5,11 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow: hidden;
+  overflow-x: hidden;
+}
+
+* {
+  user-select: none;
 }
 
 code {
@@ -17,36 +21,39 @@ code {
   cursor: pointer;
 }
 
-.landscape .page {
-  display: inline-block;
-  width: 50vw;
-  height: 100vh;
+.pdf-reader .page {
+  padding-top: 60px;
+  width: 100%;
+  position: relative;
 }
 
-.landscape .left-page canvas,
-.landscape .left-page svg {
-  position: absolute;
-  right: 0;
+.pdf-reader .page > div {
+  margin: 0 auto;
 }
 
-.portrait .left-page {
-  width: 100vw;
-  height: 100vh;
+.pagination {
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+  background: white;
+  box-shadow: 0 0 1em #a6aeae;
   text-align: center;
 }
 
-.landscape .page > div > div {
-  text-align: center;
-}
-
-.page {
-  overflow: hidden;
+.pagination button {
+  padding: 5px 10px;
+  margin: 5px;
 }
 
 canvas,
 svg {
-  max-height: 100vh;
   max-width: 100%;
   height: auto !important;
-  width: auto !important;
+  width: 100vw !important;
+
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
