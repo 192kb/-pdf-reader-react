@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ReactGA from "react-ga";
 import { Document, Page, DocumentProps, PageProps } from "react-pdf";
 import { useSwipeable } from "react-swipeable";
 
@@ -49,6 +50,18 @@ const App: React.FC = () => {
       renderMode: "canvas",
     };
   }, []);
+
+  React.useEffect(() => {
+    ReactGA.pageview("/");
+  }, []);
+
+  React.useEffect(() => {
+    ReactGA.event({
+      category: "Взаимодействие",
+      action: "Перелистывание",
+      value: pageNumber,
+    });
+  }, [pageNumber]);
 
   return (
     <div className="pdf-reader" {...swipeHanlders}>
